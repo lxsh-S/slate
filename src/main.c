@@ -1,10 +1,24 @@
 #include "termios.h"
 #include "unistd.h"
+#include <stdlib.h>
+
+struct termios orig_termios;
+
+void disableRawMode() { tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios); }
 
 void enableRawMode() {
-  struct termios raw;
 
-  tcgetattr(STDIN_FILENO, &raw);
+  tcgetattr(STDIN_FILENO, &orig_termios);
+  // we gonna use at-exit so that it
+  // disables raw mode at exit
+  atexit(disableRawMode);
+
+  struct termios raw = orig_termios;
+
+  // les also turn of conanical mode
+  // so that we can read output in conanical
+  // mode :)
+  raw.c_lflag &= ~(ECHO | ICANON);
 
   raw.c_lflag &= ~(ECHO);
 

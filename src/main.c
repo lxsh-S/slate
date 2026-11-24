@@ -17,9 +17,11 @@ void enableRawMode() {
 
   struct termios raw = orig_termios;
 
-  raw.c_iflag &= ~(ICRNL | IXON);
+  raw.c_iflag &= ~(ICRNL | IXON | ISTRIP | BRKINT | INPCK);
 
   raw.c_oflag &= ~(OPOST);
+
+  raw.c_cflag |= (CS8);
 
   raw.c_lflag &= ~(ECHO | ICANON | ISIG | IEXTEN);
 

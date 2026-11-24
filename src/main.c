@@ -17,10 +17,9 @@ void enableRawMode() {
 
   struct termios raw = orig_termios;
 
-  // les also turn of conanical mode
-  // so that we can read output in conanical
-  // mode :)
-  raw.c_lflag &= ~(ECHO | ICANON | ISIG);
+  raw.c_iflag &= ~(ICRNL | IXON);
+
+  raw.c_lflag &= ~(ECHO | ICANON | ISIG | IEXTEN);
 
   raw.c_lflag &= ~(ECHO);
 

@@ -1,4 +1,17 @@
-CFLAGS = -Wall -Wextra -pedantic -std=c99
+CC = cc
 
-slate: src/main.c src/terminal.h src/terminal.c
-		$(CC) $(CFLAGS) src/main.c src/terminal.c -o slate
+CFLAGS = -Wall -Wextra -pedantic -std=c99 -Isrc
+
+SRCS = src/main.c src/terminal.c src/read_input/keyboard.c
+OBJS = $(SRCS:.c=.o)
+
+slate: $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o slate
+
+src/%.o: src/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJS) slate
+
+.PHONY: clean

@@ -1,8 +1,11 @@
 #include "terminal.h"
+
 #include "unistd.h"
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
+
+#define CTRL_KEY(k) ((k) & 0x1f)
 
 int main() {
 
@@ -19,7 +22,7 @@ int main() {
     } else {
       printf("%d ('%c')\r\n", c, c);
     }
-    if (c == 'q')
+    if (c == CTRL_KEY('q'))
       break;
   }
 

@@ -1,11 +1,6 @@
-#include "../src/terminal/terminal.h"
-
-#include "unistd.h"
-#include <ctype.h>
-#include <errno.h>
-#include <stdio.h>
-
+#include "../src/output/output.h"
 #include "../src/read_input/keyboard.h"
+#include "../src/terminal/terminal.h"
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 
@@ -16,5 +11,7 @@ int main() {
 
   while (1) {
     editorProcessKeypress();
+    // clear the scrn
+    editorRefreshScreen();
   }
 }

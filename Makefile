@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -pedantic -std=c99 -Isrc
 
-SRCS = src/main.c src/terminal.c src/read_input/keyboard.c
+SRCS = src/main.c src/terminal.c src/read_input/keyboard.c src/output/output.c
 OBJS = $(SRCS:.c=.o)
 
 slate: $(OBJS)

@@ -11,6 +11,20 @@ struct editorConfig {
 
 extern struct editorConfig E;
 
+struct abuf {
+  char *b;
+  int len;
+};
+
+void abAppend(struct abuf *ab, const char *s, int len);
+
+void abFree(struct abuf *ab);
+
+// represents an emty buf
+// acts as cunstructor for
+// abuf
+#define ABUF_INIT {NULL, 0}
+
 void die(const char *s);
 
 void initEditor();

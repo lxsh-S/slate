@@ -9,11 +9,11 @@ int main() {
   // enable the raw mode
   enableRawMode();
 
+  // initialze editor once, not every frame
+  initEditor();
+
   while (1) {
     editorProcessKeypress();
-
-    // initialze editor
-    initEditor();
 
     // clear the scrn
     editorRefreshScreen();

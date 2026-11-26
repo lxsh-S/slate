@@ -1,7 +1,11 @@
-#include "../main.c"
 #include "../terminal/terminal.h"
 #include <errno.h>
 #include <stdlib.h>
+#include <unistd.h>
+
+#ifndef CTRL_KEY
+#define CTRL_KEY(k) ((k) & 0x1f)
+#endif
 
 char editorReadKey() {
   int nread;

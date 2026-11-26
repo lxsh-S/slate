@@ -11,6 +11,10 @@ int main() {
 
   while (1) {
     editorProcessKeypress();
+
+    // initialze editor
+    initEditor();
+
     // clear the scrn
     editorRefreshScreen();
   }

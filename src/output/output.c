@@ -1,14 +1,12 @@
 #include "output.h"
-
+#include "../terminal/terminal.h"
 #include <unistd.h>
 
 // like the base nvim well aslo draw `~` to the screen
 void editorDrawRows() {
   int y;
 
-  // currently dont know the size of the terminal
-  // so using a hardcoded rows
-  for (y = 0; y < 50; y++) {
+  for (y = 0; y < E.screenrows; y++) {
     write(STDOUT_FILENO, "~\r\n", 3);
   }
 }

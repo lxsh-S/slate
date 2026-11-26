@@ -3,5 +3,7 @@
 
 void editorProcessKeypress(void);
 
+void editorReadKey();
+
 #endif // !KEYBOARD_H
 #define KEYBOARD_H

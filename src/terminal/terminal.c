@@ -7,6 +7,9 @@
 struct termios orig_termios;
 
 void die(const char *s) {
+  write(STDOUT_FILENO, "\x1b[2J", 4);
+  write(STDOUT_FILENO, "\x1b[H", 3);
+
   perror(s);
   exit(1);
 }
@@ -28,7 +31,7 @@ void enableRawMode() {
 
   raw.c_oflag &= ~(OPOST);
 
-  raw.c_cflag &= ~(ECHO | ICANON | ISIG | IEXTEN);
+  raw.c_lflag &= ~(ECHO | ICANON | ISIG | IEXTEN);
 
   raw.c_cc[VMIN] = 0;
   raw.c_cc[VTIME] = 1;

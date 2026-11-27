@@ -10,6 +10,7 @@ enum editorKey {
   PAGE_DOWN,
   HOME_KEY,
   END_KEY,
+  DEL_KEY,
 };
 
 void editorProcessKeypress(void);

@@ -7,7 +7,9 @@ enum editorKey {
   ARROW_UP,
   ARROW_DOWN,
   PAGE_UP,
-  PAGE_DOWN
+  PAGE_DOWN,
+  HOME_KEY,
+  END_KEY,
 };
 
 void editorProcessKeypress(void);

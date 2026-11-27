@@ -2,15 +2,17 @@
 #define KEYBOARD_H
 
 enum editorKey {
-  ARROW_LEFT = 'a',
-  ARROW_RIGHT = 'd',
-  ARROW_UP = 'w',
-  ARROW_DOWN = 's'
+  ARROW_LEFT = 1000,
+  ARROW_RIGHT,
+  ARROW_UP,
+  ARROW_DOWN,
+  PAGE_UP,
+  PAGE_DOWN
 };
 
 void editorProcessKeypress(void);
 
-void editorReadKey();
+int editorReadKey();
 
 #endif // !KEYBOARD_H
 #define KEYBOARD_H

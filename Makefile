@@ -3,6 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -pedantic -std=c99 -Isrc
 
 SRCS = src/main.c \
+			 src/file/file.c \
 			 src/output/output.c \
 			 src/read_input/keyboard.c \
 			 src/terminal/terminal.c

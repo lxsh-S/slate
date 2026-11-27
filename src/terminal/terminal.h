@@ -1,6 +1,7 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H
 
+#include <stdio.h>
 #include <termios.h>
 
 #define _BSD_SOURCE
@@ -16,10 +17,12 @@ struct editorConfig {
   int screenrows;
   int screencolumns;
   int numrows;
-  erow row;
+  erow *row;
 
   struct termios orig_termios;
 };
+
+void editorAppendRow(char *s, size_t len);
 
 extern struct editorConfig E;
 

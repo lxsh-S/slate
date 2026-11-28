@@ -1,9 +1,6 @@
-#ifndef FILE_C
-#define FILE_C
+#ifndef FILE_H
+#define FILE_H
 
-void editorOpen();
+void editorOpen(char *filename);
 
-#endif // !FILE_C
-#define FILE_C
-
-void editorOpen();
+#endif // !FILE_H

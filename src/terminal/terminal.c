@@ -128,16 +128,24 @@ void enableRawMode() {
 }
 
 void editorAppendRow(char *s, size_t len) {
+  erow *new_row = realloc(E.row, sizeof(erow) * (E.numrows + 1));
+  if (new_row == NULL)
+    die("realloc");
+  E.row = new_row;
+
   E.row[E.numrows].size = len;
   E.row[E.numrows].chars = malloc(len + 1);
+  if (E.row[E.numrows].chars == NULL)
+    die("malloc");
   memcpy(E.row[E.numrows].chars, s, len);
   E.row[E.numrows].chars[len] = '\0';
-  E.numrows = 1;
+  E.numrows++;
 }
 
 void initEditor() {
   E.cx = 0;
   E.cy = 0;
+  E.rowoff = 0;
   E.numrows = 0;
   E.row = NULL;
 

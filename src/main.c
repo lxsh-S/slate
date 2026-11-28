@@ -17,8 +17,6 @@ int main(int argc, char *argv[]) {
     editorOpen(argv[1]);
   }
 
-  editorOpen();
-
   while (1) {
     editorProcessKeypress();
 

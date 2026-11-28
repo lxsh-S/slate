@@ -44,6 +44,8 @@ void abFree(struct abuf *ab);
 // abuf
 #define ABUF_INIT {NULL, 0}
 
+#define SLATE_TAB_STOP 8
+
 void die(const char *s);
 
 void initEditor();

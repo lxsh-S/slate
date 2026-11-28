@@ -87,8 +87,10 @@ void editorMoveCursor(int key) {
       E.cx--;
     break;
   case ARROW_RIGHT:
-    if (E.cx < E.screencolumns - 1)
-      E.cx++;
+    // horizonal scrolling
+    E.cx++;
+
+    // breal for compiler warnings
     break;
   case ARROW_UP:
     if (E.cy > 0)

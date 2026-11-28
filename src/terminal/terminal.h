@@ -16,6 +16,7 @@ typedef struct erow {
 
 struct editorConfig {
   int cx, cy;
+  int rx;
   int rowoff;
   int coloff;
   int screenrows;
@@ -34,6 +35,8 @@ struct abuf {
   char *b;
   int len;
 };
+
+int editorRowCxToRx(erow *row, int cx);
 
 void abAppend(struct abuf *ab, const char *s, int len);
 

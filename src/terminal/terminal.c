@@ -127,6 +127,20 @@ void enableRawMode() {
     die("tcsetattr");
 }
 
+int editorRowCxToRx(erow *row, int cx) {
+  int rx = 0;
+
+  int j;
+
+  for (j = 0; j < cx; j++) {
+    if (row->chars[j] == '\t') {
+      rx += (SLATE_TAB_STOP - 1) - (rx % SLATE_TAB_STOP);
+    }
+    rx++;
+  }
+  return rx;
+}
+
 void editorUpdateRow(erow *row) {
   int tabs = 0;
 
@@ -180,6 +194,7 @@ void editorAppendRow(char *s, size_t len) {
 void initEditor() {
   E.cx = 0;
   E.cy = 0;
+  E.rx = 0;
   E.rowoff = 0;
   E.coloff = 0;
   E.numrows = 0;

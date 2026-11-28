@@ -70,10 +70,37 @@ void editorDrawRows(struct abuf *ab) {
     }
 
     abAppend(ab, "\x1b[K", 3);
-    if (y < E.screenrows - 1) {
-      abAppend(ab, "\r\n", 2);
+    abAppend(ab, "\r\n", 2);
+  }
+}
+
+void editorDrawStatusBar(struct abuf *ab) {
+  abAppend(ab, "\x1b[7m", 4);
+
+  char status[80];
+  char rstatus[80];
+
+  int len = snprintf(status, sizeof(status), "%20s - %d lines",
+                     E.filename ? E.filename : "[No Name :(]", E.numrows);
+
+  int rlen = snprintf(rstatus, sizeof(rstatus), "%d/%d", E.cy + 1, E.numrows);
+
+  if (len > E.screencolumns) {
+    len = E.screencolumns;
+  }
+
+  abAppend(ab, status, len);
+
+  while (len < E.screencolumns) {
+    if (E.screencolumns - len == rlen) {
+      abAppend(ab, rstatus, rlen);
+      break;
+    } else {
+      abAppend(ab, " ", 1);
+      len++;
     }
   }
+  abAppend(ab, "\x1b[m", 3);
 }
 
 // as we have named it'll
@@ -89,6 +116,7 @@ void editorRefreshScreen() {
   abAppend(&ab, "\x1b[H", 3);
 
   editorDrawRows(&ab);
+  editorDrawStatusBar(&ab);
 
   char buf[32];
   snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1,

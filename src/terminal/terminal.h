@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <termios.h>
+#include <time.h>
 
 #define _BSD_SOURCE
 #define _GNU_SCOURCE
@@ -24,6 +25,8 @@ struct editorConfig {
   int numrows;
   erow *row;
   char *filename;
+  char statusmsg[80];
+  time_t statusmsg_time;
 
   struct termios orig_termios;
 };

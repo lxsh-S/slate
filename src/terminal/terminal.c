@@ -200,9 +200,11 @@ void initEditor() {
   E.numrows = 0;
   E.row = NULL;
   E.filename = NULL;
+  E.statusmsg[0] = '\0';
+  E.statusmsg_time = 0;
 
   if (getWindowSize(&E.screenrows, &E.screencolumns) == -1)
     die("getWindowSize");
 
-  E.screenrows -= 1;
+  E.screenrows -= 2;
 }

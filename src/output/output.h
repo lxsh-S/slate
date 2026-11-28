@@ -7,3 +7,5 @@ void editorRefreshScreen();
 #define OUTPUT_H
 
 void editorRefreshScreen();
+
+void editorSetStatusMessage(const char *fmt, ...);

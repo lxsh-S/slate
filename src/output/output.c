@@ -1,5 +1,6 @@
 #include "output.h"
 #include "../terminal/terminal.h"
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -101,6 +102,21 @@ void editorDrawStatusBar(struct abuf *ab) {
     }
   }
   abAppend(ab, "\x1b[m", 3);
+  abAppend(ab, "\r\n", 2);
+}
+
+void editorDrawMessageBar(struct abuf *ab) {
+  abAppend(ab, "\x1b[K", 3);
+
+  int msglen = strlen(E.statusmsg);
+
+  if (msglen > E.screencolumns) {
+    msglen = E.screencolumns;
+  }
+
+  if (msglen && time(NULL) - E.statusmsg_time < 5) {
+    abAppend(ab, E.statusmsg, msglen);
+  }
 }
 
 // as we have named it'll
@@ -117,6 +133,7 @@ void editorRefreshScreen() {
 
   editorDrawRows(&ab);
   editorDrawStatusBar(&ab);
+  editorDrawMessageBar(&ab);
 
   char buf[32];
   snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1,
@@ -130,4 +147,13 @@ void editorRefreshScreen() {
   // that cause flickering
   write(STDOUT_FILENO, ab.b, ab.len);
   abFree(&ab);
+}
+
+// status bar msg
+void editorSetStatusMessage(const char *fmt, ...) {
+  va_list ap;
+  va_start(ap, fmt);
+  vsnprintf(E.statusmsg, sizeof(E.statusmsg), fmt, ap);
+  va_end(ap);
+  E.statusmsg_time = time(NULL);
 }

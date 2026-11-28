@@ -81,6 +81,9 @@ int editorReadKey() {
 }
 
 void editorMoveCursor(int key) {
+
+  erow *row = (E.cy >= E.numrows) ? NULL : &E.row[E.cy];
+
   switch (key) {
   case ARROW_LEFT:
     if (E.cx > 0)
@@ -88,7 +91,10 @@ void editorMoveCursor(int key) {
     break;
   case ARROW_RIGHT:
     // horizonal scrolling
-    E.cx++;
+    // but limited
+    if (row && E.cx < row->size) {
+      E.cx++;
+    }
 
     // breal for compiler warnings
     break;
@@ -100,6 +106,12 @@ void editorMoveCursor(int key) {
     if (E.cy < E.numrows)
       E.cy++;
     break;
+  }
+
+  row = (E.cy >= E.numrows) ? NULL : &E.row[E.cy];
+  int rowlen = row ? row->size : 0;
+  if (E.cx > rowlen) {
+    E.cx = rowlen;
   }
 }
 

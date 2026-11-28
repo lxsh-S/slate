@@ -127,6 +127,22 @@ void enableRawMode() {
     die("tcsetattr");
 }
 
+void editorUpdateRow(erow *row) {
+  free(row->render);
+
+  row->render = malloc(row->size + 1);
+
+  int j;
+  int idx = 0;
+
+  for (j = 0; j < row->size; j++) {
+    row->render[idx++] = row->chars[j];
+  }
+
+  row->render[idx] = '\0';
+  row->rsize = idx;
+}
+
 void editorAppendRow(char *s, size_t len) {
   erow *new_row = realloc(E.row, sizeof(erow) * (E.numrows + 1));
   if (new_row == NULL)
@@ -139,6 +155,12 @@ void editorAppendRow(char *s, size_t len) {
     die("malloc");
   memcpy(E.row[E.numrows].chars, s, len);
   E.row[E.numrows].chars[len] = '\0';
+
+  E.row[E.numrows].rsize = 0;
+  E.row[E.numrows].render = NULL;
+
+  editorUpdateRow(&E.row[E.numrows]);
+
   E.numrows++;
 }
 

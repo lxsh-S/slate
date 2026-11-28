@@ -46,6 +46,9 @@ void abAppend(struct abuf *ab, const char *s, int len);
 
 void abFree(struct abuf *ab);
 
+void editorRowInsertChar(erow *row, int at, int c);
+void editorInsertChar(int c);
+
 // represents an emty buf
 // acts as cunstructor for
 // abuf
